@@ -28,10 +28,59 @@
             <div class="pace-progress-inner"></div>
         </div>
         <div class="pace-activity"></div></div>
-        <div id="app">
-            <router-view></router-view>
+        <div class="" style="padding-left: 15px;">
+            <label>Chọn tình trạng</label>
         </div>
+        <div class="form-group" style="padding-left: 15px;">
+            <select onchange="change()" id="change" class="form-control col-md-3" style="width: 20% !important;">
+                @foreach($status as $st)
+                   <option <?=$st2 == $st->status ? 'selected' : '' ?> value="{{$st->status}}">{{$st->status}}</option>     
+                @endforeach
+            </select>
+        </div>
+        <table class="table">
+    <thead>
+      <tr>
+        <th>Uid</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>CMTID</th>
+        <th>PHOTOID</th>
+        <th>Link Suport</th>
+        <th>Fist Name</th>
+        <th>Lsst Name</th>
+        <th>Birthday</th>
+        <th>Time Create</th>
+      </tr>
+    </thead>
+    <tbody>
+        @foreach($clone as $cl)
+      <tr>
+        <td><a href="https://fb.com/{{$cl->uid}}" target="_blank">{{$cl->uid}}</a></td>
+        <td>{{$cl->email}}</td>
+        <td>{{$cl->password}}</td>
+        <td><a href="http://125.212.245.115:88/IDRequest.ashx?id={{$cl->cmtid}}" target="_blank">{{$cl->cmtid}}</a></td>
+        <td>{{$cl->photoid}}</td>
+        <td>{{$cl->linksp}}</td>
+        <td>{{$cl->lastname}}</td>
+        <td>{{$cl->firstname}}</td>
+        <td>{{$cl->birthday}}</td>
+        <td>{{$cl->created_at}}</td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
+  {{ $clone->links() }}
+        <!--<div id="app">
+            <router-view></router-view>
+        </div>-->
     </body>
 <!---jquery--->
-<script src="{{mix('js/app.js')}}" type="text/javascript"></script>
+<!--<script src="{{mix('js/app.js')}}" type="text/javascript"></script>-->
 </html>
+<script>
+function change(){
+    var change = $('#change').val();
+    location.href='http://fb68.vip/clone/'+change;
+}
+</script>

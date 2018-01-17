@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\clone2;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -23,9 +24,17 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($st = '')
     {
-        return view('welcome');
+        if($st == ''){
+         
+        $clone = clone2::paginate(20);   
+        }else{
+        $clone = clone2::where('status',$st)->paginate(20);
+            
+        }
+        $status = clone2::select('status')->distinct()->get();
+        return view('welcome',['clone' => $clone,'status' => $status,'st2'=>$st]);
     }
 
     public function index2()
